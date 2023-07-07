@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./Homepage.scss";
 
 const slides = [
@@ -11,25 +12,45 @@ const slides = [
 ];
 
 export default function Homepage() {
+    const [animate, setAnimate] = useState(true);
+    const onStop = () => setAnimate(false);
+    const onRun = () => setAnimate(true);
+
     return (
         <div className="wrapper">
             <div className="slide_container">
-                <ul className="slide_wrapper">
-                    <div className="slide original">
+                <ul
+                    className="slide_wrapper"
+                    onMouseEnter={onStop}
+                    onMouseLeave={onRun}
+                >
+                    <div
+                        className={"slide original".concat(
+                            animate ? "" : " stop"
+                        )}
+                    >
                         {slides.map((s, i) => (
-                            <li key={i}>
+                            <li
+                                key={i}
+                                className={i % 2 === 0 ? "big" : "small"}
+                            >
                                 <div
-                                    className="items"
+                                    className="item"
                                     style={{ background: s.color }}
                                 ></div>
                             </li>
                         ))}
                     </div>
-                    <div className="slide clone">
+                    <div
+                        className={"slide clone".concat(animate ? "" : " stop")}
+                    >
                         {slides.map((s, i) => (
-                            <li key={i}>
+                            <li
+                                key={i}
+                                className={i % 2 === 0 ? "big" : "small"}
+                            >
                                 <div
-                                    className="items"
+                                    className="item"
                                     style={{ background: s.color }}
                                 ></div>
                             </li>
